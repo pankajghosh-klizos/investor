@@ -51,8 +51,8 @@ import PageLoader from "@/components/charts/PageLoader.jsx";
 const API_BASE_URI = process.env.NEXT_PUBLIC_API_BASE_URI;
 
 export async function getServerSideProps(context) {
-  // const origin = context.req.headers.host;
-  const origin = "ehvvf.investor.klizos.com";
+  const origin = context.req.headers.host;
+  // const origin = "ehvvf.investor.klizos.com";
 
   const fallbackMetadata = {
     title: "Investor Relations",
@@ -71,7 +71,7 @@ export async function getServerSideProps(context) {
 
   try {
     const res = await axios.get(
-      `${API_BASE_URI}/manage-content/get-content-management-details/${"ehvvf.investor.klizos.com"}`,
+      `${API_BASE_URI}/manage-content/get-content-management-details/${origin}`,
       {
         headers: {
           Accept: "application/json",
@@ -189,7 +189,7 @@ function Investor({ metadata }) {
     const fetchContentManagementDetails = async () => {
       try {
         const res = await axios.get(
-          `${API_BASE_URI}/manage-content/get-content-management-details/${"ehvvf.investor.klizos.com"}`
+          `${API_BASE_URI}/manage-content/get-content-management-details/${window.location.hostname}`
         );
 
         if (res.data?.isLeadUser === "lead access granted") {
@@ -267,7 +267,7 @@ function Investor({ metadata }) {
 
       try {
         const response = await axios.get(
-          `${API_BASE_URI}/press-release/investor-press-page/${"ehvvf.investor.klizos.com"}`
+          `${API_BASE_URI}/press-release/investor-press-page/${window.location.hostname}`
         );
         // console.log("press-releases response", response);
 
