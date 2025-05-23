@@ -1,0 +1,419 @@
+@media (max-width:1560px) {
+    .ipo-container .container-fluid,
+        .ipo-container2 .container-fluid,
+        .container-fluid.custom-container {
+            max-width: calc(100% - 20rem) !important;
+        }
+        .container-md { 
+            max-width: calc(100% - 40rem) !important;
+        }
+}
+
+@media (max-width:1440px) {
+    .ipo-container .container-fluid,
+        .ipo-container2 .container-fluid,
+        .container-fluid.custom-container {
+            max-width: calc(100% - 10rem) !important;
+        }
+        .container-md {
+            max-width: calc(100% - 27rem) !important;
+        }
+}
+
+@media (max-width:1024px) {
+
+    .ipo-container .container-fluid,
+    .ipo-container2 .container-fluid,
+    .container-fluid.custom-container {
+        max-width: calc(100% - 5rem) !important;
+    }
+
+    .container-md {
+        max-width: calc(100% - 17rem) !important;
+    }
+}
+
+
+
+@media (max-width:992px) {
+    .ipo-container .container-fluid,
+.ipo-container2 .container-fluid,
+.container-fluid.custom-container {
+  max-width: calc(100% - 5rem);
+}
+    .ipo-container header ul li{
+        display: block;
+        text-align: center;
+    }
+    .ipo-container header .navMenu{
+        position: absolute;
+        width: 100%;
+        height: fit-content;
+        background: rgb(0, 0, 0);
+        left: 0;
+        top: 9.3rem;
+        padding: 2rem 0rem;
+        display: none;
+        z-index: 99999;
+    }
+    .ipo-container header .navMenu.open{
+        display: block;
+    }
+    .ipo-container .banner h1 br{
+        content: '';
+    }
+    .leadership-section h3.h4font br {
+        content: '';
+    }
+
+    .ipo-container header.sticky .navMenu li a {
+        color: white;
+      }
+
+    .right-box {
+        background-color: #6099F7;
+        position: relative;
+        backdrop-filter: blur(9px);
+        min-height: 100vh;
+    }
+    .auth_inner{
+        padding-top: 9rem !important;
+    }
+    .auth_layout .form-control {
+        border: 1.5px solid #312d43;
+        background: transparent;
+    }
+    .left_box {
+        height: 100%;
+        position: absolute;
+        background-color: #6099F7;
+    }
+    .left_box img {
+        display: none;
+    }
+    .auth_title{
+        color: white;
+    }
+    .continue-with span {
+        background-color: #6099f7;
+        color: #312d43;
+    }
+    .continue-with::after {
+        background: #312d43;
+    }
+    .auth_box p a,
+    .auth_title,
+    .auth_layout .from-label,
+    .auth_layout .form-control::placeholder,
+    .right-box p{
+        color: #312d43;
+    }
+    .auth_layout .from-group svg.password_icon{
+        color: #312d43 !important;
+    }
+    .common_section {
+        padding: 3rem 0rem;
+    }
+    .footerLogo {
+        margin-bottom: 5.5rem;
+    }
+
+    .navbar-aside{
+        z-index: 9999;
+    }
+    .main-wrap {
+        margin-left: 80px;
+    }
+    .table-container table{
+        min-width: 99.2rem;
+    }
+    .dropdown-profile{
+        display: none;
+    }
+    .user_info .dropdown-menu[data-bs-popper]{
+        left:auto;
+        right: 0;
+    }
+
+    .admin-container .aside-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+        display: none;
+        z-index: 999;
+    }
+    .aside-mini.admin-container .aside-overlay{
+        display: none;
+    }
+    .admin-container .aside-overlay{
+        display: block;
+    }
+    .event-slider-container .swiper-slide .row > div > div{
+        height: fit-content;
+    }
+    .overview-slider-container .swiper-slide .row > div > div,
+    .management-slider-container .swiper-slide .row > div > div{
+        height: 41.11rem;
+    }
+
+    .home-banner {
+        padding: 5rem 0;
+    }
+    .home-banner .image {
+        width: 60%;
+        margin: 3rem auto 0;
+    }
+
+    #requestInformation .modal-body {
+        width: 100%;
+    }
+    .governance-documents .row > p{
+        text-align: justify !important;
+    }
+}
+
+@media (max-width:768px) {
+    .ipo-container .container-fluid,
+    .ipo-container2 .container-fluid,
+    .container-fluid.custom-container {
+        max-width: calc(100% - 5rem) !important;
+    }
+    .container-md {
+        max-width: calc(100% - 10rem) !important;
+    }
+    
+    .ipo_box{
+        box-shadow: 0 0 0 .3rem rgba(255, 255, 255, 0.25);
+    }
+    .section-title {
+        font-size: clamp(2.4rem, 3.8vw, 6.4rem);
+    }
+    .h4font {
+        font-size: clamp(2.7rem, 3.5vw, 4.6rem);
+    }
+    .chart_main {
+        width: 94% !important;
+        left: 3%;
+    }
+    /* .overview_main {
+        margin-top: 38rem;
+    } */
+    .overview_main div.overview_box{
+        padding: 2rem 2.5rem !important;
+        border-radius: 2rem;
+    }
+    .main-wrap header.main-header.navbar {
+        padding: 1.5rem 2rem;
+    }
+    .aside-mini .navbar-aside {
+        left: -8rem;
+    }
+    .main-wrap,
+    .aside-mini .main-wrap {
+        margin-left: 0rem;
+    }
+    #requestInformation .modal-dialog {
+        width: 91%;
+    }
+    #requestInformation .modal-dialog {
+        width: 91%;
+        margin: 2rem auto;
+    }
+
+}
+@media (max-width:552px) {
+    .ipo-container .container-fluid,
+    .ipo-container2 .container-fluid,
+    .container-fluid.custom-container {
+        max-width: calc(100% - 3rem) !important;
+    }
+    .container-md {
+        max-width: calc(100% - 4rem) !important;
+    }
+
+    /* .email-alert-section .container-fluid > div{
+        padding: 0rem;
+    } */
+    .email-alert-section .form-check {
+        width: 100%;
+    }
+    .email-alert-section form input[type="email"] {
+        font-size: clamp(1.6rem, 1.6vw, 2rem);
+        border-radius: clamp(1rem, 2vw, 2.5rem);
+    }
+    .ipo-container .top_footer ul li {
+        font-size: clamp(1.6rem, 1.3vw, 1.7rem);
+        margin-bottom: clamp(1rem, 1.9vw, 2.6rem);
+    }
+    .ipo-container .para2 {
+        font-size: clamp(1.4rem, 1.3vw, 1.9rem);
+    }
+    .overview-slider-container .navigation-button.custom-prev-overview, 
+    .management-slider-container .navigation-button.custom-prev-management {
+        right: 7rem;
+    }
+    .management-slider-container .navigation-button.custom-next-management {
+        right: 2rem;
+    }
+    .overview-slider-container .navigation-button, 
+    .management-slider-container .navigation-button {
+        height: clamp(3.2rem, 4vw, 6rem);
+        width: clamp(3.2rem, 4vw, 6rem);
+        top: 2.2rem;
+    }
+    .range_btns li {
+        border-right: .1rem solid #979797;
+        padding: 0rem clamp(.3rem, 1.6vw, 3rem);
+    }
+    .governance-documents li svg{
+        height: 3rem;
+    }
+    .governance-documents li p {
+        font-size: clamp(1.7rem, 1.9vw, 3rem);
+    }
+    .secfilings-table .secfilings-inner{
+        overflow-x: scroll;
+    }
+    .secfilings-table table{
+        width: 55rem;
+    }
+    .ipo-container .banner h1 {
+        font-size: clamp(4.3rem, 6.3vw, 12rem);
+        line-height: clamp(4.3rem, 6.8vw, 13rem);
+    }
+    .chart_main::before {
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+    }
+    .btns-main button {
+        border: .3px solid #2F2F2F1A;
+        font-size: 1.3rem;
+    }
+    /* .overview_main {
+        margin-top: 33rem;
+    } */
+    .footerLogo {
+        margin-bottom: 4.5rem;
+    }
+    .auth_inner > div {
+        padding: 0 clamp(1rem, 1vw, 2rem);
+        width: 100%;
+    }
+    .auth_inner{
+        width: 100%;
+    }
+    .logo a img{
+        width: clamp(10rem, 37vw, 16rem);
+    }
+    .auth_layout header .common_btn, .auth_layout header .common_btn_active {
+        font-size: 1.4rem;
+        padding: .5rem 1.7rem;
+        line-height: 1.9rem;
+        border-radius: 5px;
+    }
+    .auth_layout .form-control {
+        height: 4.4rem;
+        border-radius: 6px;
+        padding: 0.7rem 1rem;
+    }
+    .common_btn_active{
+        padding: 1.1rem 2rem;
+    }
+    .range_btns button {
+        padding: .2rem .5rem;
+    }
+    .activities_main{
+        width: 53rem;
+    }
+    .dropdown-menu-lg {
+        width:  clamp(23rem, 60vw, 30rem);
+    }
+    .subscribe_card > img {
+        right: -1.1rem;
+    }
+    .subscribe_card .common_btn_active{
+        font-size: 1.6rem;
+    }
+    .event-slider-container .navigation-button svg{
+        height: 2.5rem;
+    }
+    .event-slider-container .navigation-button{
+        right: 1.8rem;
+    }
+    .event-slider-container .navigation-button.custom-prev {
+        right: 6.6rem;
+    }
+    .overview-slider-container .navigation-button{
+        right: 2rem;
+    }
+    .overview-slider-container .navigation-button.custom-prev {
+        right: 7rem;
+    }
+    /* .user-det img{
+        width: 100%;
+    } */
+    .home-banner .image{
+        display: none;
+    }
+    .avatar {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+    .chart_main img {
+        height: 4rem;
+    }
+    .home-banner .content h1 {
+        font-size: clamp(3rem, 4vw, 5.5rem);
+    }
+    .home-title {
+        font-size: clamp(2.8rem, 4vw, 4.8rem);
+    }
+    .common-section {
+        padding: 3rem 0rem;
+    }
+    .common-section .common_btn,
+    .home-banner .common_btn,
+    .home-banner .common_btn_active{
+        padding: 12px 17px;
+        font-size: 1.6rem;
+    }
+    .common_btn1.active, .common_btn1:hover {
+        font-size: 1.6rem;
+        padding: .8rem 2rem;
+    }
+    .ipo-container header .navMenu {
+        top: 8rem;
+    }
+    .ipo-container .leadership-section select{
+        width: auto;
+    }
+    .card.press-releases-box .card-img-top {
+        height: 20rem;
+    }
+}
+
+
+
+@media (max-width:480px) {
+    .ipo-container .container-fluid,
+    .ipo-container2 .container-fluid,
+    .container-fluid.custom-container {
+        max-width: calc(100% - 0rem) !important;
+    }
+    .container-md {
+        max-width: calc(100% - 1rem) !important;
+    }
+        .governance-documents li p {
+            font-size: clamp(1.5rem 16px, 1.9vw, 3rem);
+        }
+}
+
+
+
+
