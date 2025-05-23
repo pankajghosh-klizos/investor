@@ -1,32 +1,12 @@
 import Link from "next/link";
 import Head from "next/head";
 import {
-  DavidHo,
-  davidMandel,
-  Edison,
-  footerLogo,
-  Francis,
-  Hao,
-  ipoBanner,
-  ipoLogo,
-  jacklynWu,
-  Justin,
   leadership,
-  nasdaq,
-  nicLin,
   pressReleases1,
   pressReleases2,
   pressReleases3,
-  Suresh,
-  Timothy,
 } from "../constants/images.js";
-import {
-  FaBarsStaggered,
-  FaRegClock,
-  FaXmark,
-  FaMapLocationDot,
-  FaAnglesRight,
-} from "react-icons/fa6";
+import { FaBarsStaggered, FaRegClock, FaXmark } from "react-icons/fa6";
 import { IoIosCall, IoIosMail } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 import { useRef, useState, useEffect } from "react";
@@ -50,93 +30,23 @@ import PageLoader from "@/components/charts/PageLoader.jsx";
 
 const API_BASE_URI = process.env.NEXT_PUBLIC_API_BASE_URI;
 
-export async function getServerSideProps(context) {
-  const origin = context.req.headers.host;
-  // const origin = "ehvvf.investor.klizos.com";
+const fallbackMetadata = {
+  title: "Investor Relations",
+  description: "Investor Relations description.",
+  ogTitle: "Investor Relations",
+  ogDescription: "Investor Relations description.",
+  ogUrl: "https://athr.investor.klizos.com",
+  ogSiteName: "Investor Relations",
+  ogImage:
+    "https://res.cloudinary.com/dad2aebqt/image/upload/v1747226009/image__3__720_wop1ln.png",
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: "Investor Relations Preview",
+  ogType: "website",
+};
 
-  const fallbackMetadata = {
-    title: "Investor Relations",
-    description: "Investor Relations description.",
-    ogTitle: "Investor Relations",
-    ogDescription: "Investor Relations description.",
-    ogUrl: `https://${origin}`,
-    ogSiteName: "Investor Relations",
-    ogImage:
-      "https://res.cloudinary.com/dad2aebqt/image/upload/v1747226009/image__3__720_wop1ln.png",
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
-    ogImageAlt: "Investor Relations Preview",
-    ogType: "website",
-  };
-
-  try {
-    const res = await axios.get(
-      `${API_BASE_URI}/manage-content/get-content-management-details/${origin}`,
-      {
-        headers: {
-          Accept: "application/json",
-        },
-        timeout: 5000,
-      }
-    );
-
-    if (!res?.data?.success || !res?.data?.investorResponse) {
-      console.error("Error:: Failed to fetch meta info", res?.data);
-      return {
-        props: {
-          metadata: fallbackMetadata,
-        },
-      };
-    }
-
-    const metaData = res.data.investorResponse;
-    const baseUrl = `https://${origin}`;
-    const fallbackOgImage =
-      "https://res.cloudinary.com/dad2aebqt/image/upload/v1747226009/image__3__720_wop1ln.png";
-
-    const ogImage =
-      metaData.brandingId?.brandingSection?.og_image ??
-      metaData.brandingId?.brandingSection?.branding_logo ??
-      fallbackOgImage;
-
-    const absoluteOgImage = ogImage.startsWith("http")
-      ? ogImage
-      : `${baseUrl}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`;
-
-    const pageTitle = metaData.page_title ?? "Investor Relations";
-    const description =
-      metaData.overviewSection?.description ??
-      "Investor Relations description.";
-
-    return {
-      props: {
-        metadata: {
-          title: pageTitle,
-          description,
-          ogTitle: pageTitle,
-          ogDescription: description,
-          ogUrl: baseUrl,
-          ogSiteName: "Investor Relations",
-          ogImage: absoluteOgImage,
-          ogImageWidth: 1200,
-          ogImageHeight: 630,
-          ogImageAlt: pageTitle,
-          ogType: "website",
-        },
-      },
-    };
-  } catch (error) {
-    console.error("Error:: getMetaInfo: ", error);
-    return {
-      props: {
-        metadata: fallbackMetadata,
-      },
-    };
-  }
-}
-
-function Investor({ metadata }) {
-  const { overview, quotes } = useSelector((state) => state?.stock);
+function Investor() {
+  const { quotes } = useSelector((state) => state?.stock);
 
   const isuser = true;
 
@@ -240,13 +150,10 @@ function Investor({ metadata }) {
           `${API_BASE_URI}/sec-filings/${symbol}?${queryParams}`
         );
 
-        // console.log("response", response);
-
         setSecFilings(response.data?.data);
         setFilteredFilings(response.data?.data);
       } catch (err) {
         console.log("error", err);
-        // setError(err?.response?.message);
       } finally {
         setLoading(false);
       }
@@ -254,11 +161,6 @@ function Investor({ metadata }) {
 
     fetchContentManagementDetails();
   }, []);
-
-  // for set title
-  // useEffect(() => {
-  //   document.title = title;
-  // }, [title]);
 
   // for fetching press releases
   useEffect(() => {
@@ -269,15 +171,12 @@ function Investor({ metadata }) {
         const response = await axios.get(
           `${API_BASE_URI}/press-release/investor-press-page/${window.location.hostname}`
         );
-        // console.log("press-releases response", response);
 
         if (response.data?.success) {
           setPressReleases(response.data?.press);
         }
       } catch (error) {
         console.log("error", error);
-
-        // setError("Error while fetching press release data");
       } finally {
         setLoading(false);
       }
@@ -287,9 +186,6 @@ function Investor({ metadata }) {
   }, []);
 
   useEffect(() => {
-    // console.log(secfiling);
-    // console.log(typeFilter);
-
     if (typeFilter === "") {
       setFilteredFilings(secfiling);
     } else {
@@ -324,18 +220,6 @@ function Investor({ metadata }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const formatMarketCap = (value) => {
-    if (!value) return "N/A"; // Handle missing values
-    const num = parseFloat(value);
-
-    if (num >= 1e12) return (num / 1e12).toFixed(2) + "T"; // Trillion
-    if (num >= 1e9) return (num / 1e9).toFixed(2) + "B"; // Billion
-    if (num >= 1e6) return (num / 1e6).toFixed(2) + "M"; // Million
-    if (num >= 1e3) return (num / 1e3).toFixed(2) + "K"; // Thousand
-
-    return num.toString(); // Return as-is if less than 1000
-  };
 
   // using usa timestamp
   const formatDate = () => {
@@ -480,128 +364,6 @@ function Investor({ metadata }) {
     },
   ];
 
-  const OverviewData = [
-    {
-      key_members_image: nicLin,
-      key_members_name: "Nicolas Lin",
-      key_members_designation: "Chairman and Interim Chief Executive Officer",
-      key_members_info:
-        "Nicolas corporate brings a finance decade of acumen, specializing in U.S. transactions and often representing Asian clientele. His board experiences span from companies like Moxian, Inc. (NASDAQ: MOXC), Flewber Global, Inc. (NASDAQ: FLYF) and St James Gold Corp. (TSX-V: LORD; OTCQB: LRDJF), underscoring his expertise in guiding both U.S. and Canadian markets.",
-    },
-    {
-      key_members_image: jacklynWu,
-      key_members_name: "Jaclyn Wu",
-      key_members_designation: "Executive Director",
-      key_members_info:
-        "Jaclyn holds over 15 years in finance, marked by her engagement in 100+ seminars that empowered investors. A member of the PCMA Dealing Representative Advisory Committee and a distinguished qualifier of the MDRT Association, she co-founded Monic Financial, emphasizing her leadership in the sector.",
-    },
-
-    {
-      key_members_image: Justin,
-      key_members_name: "Justin Peter Molander",
-      key_members_designation: "Independent Director",
-      key_members_info:
-        "Justin holds over 20 years of experience in financial analysis, market research, and financing high-growth companies assuming prominent positions in the mining industry and academia. Since 2014, he has been the Founder and Managing Director of Trading Post Investments Ltd. and has been teaching business and accounting at various institutions since 2021.",
-    },
-    {
-      key_members_image: davidMandel,
-      key_members_name: "David Mandel",
-      key_members_designation: "Independent Director",
-      key_members_info:
-        "David Mandel is the co-founder and Chairman of Bitvore Corp, an AI and machine learning company serving major Wall Street firms since 2014. He was a seed investor in a number of very successful companies such as Broadcom and Fulcrum Microsystems. David holds a degree in Mathematics from the University of Pennsylvania, and brings  extensive experience in technology and finance to Aether's board.",
-    },
-    {
-      key_members_image: Timothy,
-      key_members_name: "Timothy Murphy",
-      key_members_designation: "Independent Director",
-      key_members_info:
-        "Timothy  is the Founding Partner of Murphy & Company, LLP, a leading business law firm in Vancouver, Canada, established in January 2011. With over 15 years of experience advising high-growth companies on acquisitions, mergers technology, and and finance matters, he has also served as a CEO and board member for numerous public and private companies.",
-    },
-  ];
-
-  const ManagementData = [
-    {
-      key_members_image: Suresh,
-      key_members_name: "Suresh R. Iyer",
-      key_members_designation: "Chief Finanacial Officer",
-      key_members_info:
-        "Suresh R. Iyer was appointed as Chief Financial Officer on May 16, 2024. With over 25 years of international finance experience, he is a CPA and ACA credentialed professional who excels in US GAAP, IFRS, SEC Reporting, and IPO readiness, having led financial strategy and audits for major firms, including BDO USA LLP and PricewaterhouseCoopers LLP.",
-    },
-    {
-      key_members_image: nicLin,
-      key_members_name: "Nicolas Lin",
-      key_members_designation: "Chairman and Interim Chief Executive Officer",
-      key_members_info:
-        "Nicolas corporate brings a finance decade of acumen, specializing in U.S. transactions and often representing Asian clientele. His board experiences span from companies like Moxian, Inc. (NASDAQ: MOXC), Flewber Global, Inc. (NASDAQ: FLYF) and St James Gold Corp. (TSX-V: LORD; OTCQB: LRDJF), underscoring his expertise in guiding both U.S. and Canadian markets.",
-    },
-    {
-      key_members_image: DavidHo,
-      key_members_name: "David Chi Ching Ho",
-      key_members_designation: "Chief Strategy Officer",
-      key_members_info:
-        "Mr. Ho has been the Chief Strategy Officer since April 2024, bringing over 25 years of expertise in corporate strategy, mergers and acquisitions, and joint venture partnerships. He has advised the Hoovest Group on investments and strategic alliances since July 2020 and previously led corporate development at Lai Sun Development. As a co-founder and executive director at Pergill Internationally Holdings Inc., he successfully completed acquisitions totaling US$280 million.",
-    },
-    {
-      key_members_image: Hao,
-      key_members_name: "Hao Hu",
-      key_members_designation: "Chief Technology Officer",
-      key_members_info:
-        "Mr. Hu has over 20 years of rich software development and management experience. He served as CTO at several technology companies in domestic and overseas in the past 10 years with huge contributions and improved innovative technology. During his career, he has been exploring the advanced technology, and guides the application of innovative technology approaches, machine learning and integrating artificial intelligence to create novel signals and systematic strategies.",
-    },
-    {
-      key_members_image: Francis,
-      key_members_name: "Francis Cid",
-      key_members_designation: "Business Development",
-      key_members_info:
-        "Frank Cid, an accomplished investment banker with over 25 years of experience in capital formation and advisory services, known for his sector-neutral approach, adeptly supports clients ranging from pre-revenue startups to nano and micro-cap public companies. His vast expertise spans diverse industries, solidifying his reputation as a trusted advisor in financial strategy.",
-    },
-    {
-      key_members_image: Edison,
-      key_members_name: "Edison Feng",
-      key_members_designation: "Business Unit Director",
-      key_members_info:
-        "Edison brings on years of experience in real estate management, corporate strategies and capital fund-raising. Since 2020, Edison has been managing multi-million construction real estate overseeing from inception through completion of development for the past decade. At the same time, he also has vast experiences in managing real estate portfolios for real estate developers such as 3T Construction, NYVA Group and NYC Vision Development, position as managing Director. Edison graduated from Baruch College Zicklin School of Business, majoring in Real Estate Investment.",
-    },
-  ];
-
-  const EventData = [
-    {
-      event_unique_id: 0,
-      event_title: "Welcome to the IPO Launch Webniar",
-      event_short_tag: "IPO Launch Webniar",
-      event_description:
-        "Be part of this milestone event as we unveil the journey to our Initial Public Offering (IPO). Gain exclusive insights into the strategies, market opportunities, and leadership vision driving this transformative moment.",
-      event_date: "March 02,2025",
-      event_time: "3:00 PM EST",
-      speaker_name: "Niclos Lin",
-      speaker_image: nicLin,
-      speaker_designation: "Chief Executive Officer",
-      key_points: ["Market insights", "Product Launches", "Executive speeches"],
-    },
-    {
-      event_unique_id: 1,
-      event_title: "Welcome to the IPO Launch Webniar II",
-      event_short_tag: "IPO Launch Webniar II",
-      event_description:
-        "Be part of this milestone event as we unveil the journey to our Initial Public Offering (IPO). Gain exclusive insights into the strategies, market opportunities, and leadership vision driving this transformative moment.",
-      event_date: "March 02,2025",
-      event_time: "3:00 PM EST",
-      speaker_image: jacklynWu,
-      speaker_name: "Jacklyn Wu",
-      speaker_designation: "Executive Director 1",
-      key_points: ["Market insights", "Product Launches"],
-    },
-  ];
-
-  const AnnouncementData = [
-    {
-      document_title: "2nd Annual General Meeting",
-      document_date: "Thursday, April 24, 2025",
-      document_time: "4:30 PM",
-      document_file: "/",
-    },
-  ];
-
   const menuData = isuser ? activeNavMenu : navMenu;
   const footerMenuData = isuser ? activefooterMenu : footerMenu;
 
@@ -612,38 +374,37 @@ function Investor({ metadata }) {
   return (
     <>
       <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta property="og:title" content={metadata.ogTitle} />
-        <meta property="og:description" content={metadata.ogDescription} />
-        <meta property="og:url" content={metadata.ogUrl} />
-        <meta property="og:site_name" content={metadata.ogSiteName} />
-        <meta property="og:image" content={metadata.ogImage} />
-        <meta property="og:image:width" content={metadata.ogImageWidth} />
-        <meta property="og:image:height" content={metadata.ogImageHeight} />
-        <meta property="og:image:alt" content={metadata.ogImageAlt} />
-        <meta property="og:type" content={metadata.ogType} />
-        <link
-          rel="icon"
-          type="image/x-icon"
-          href={
-            "https://res.cloudinary.com/dad2aebqt/image/upload/v1747227521/favicon_zgyqdj.ico"
-          }
+        <title>{fallbackMetadata.title}</title>
+        <meta name="description" content={fallbackMetadata.description} />
+
+        {/* Open Graph meta tags */}
+        <meta property="og:title" content={fallbackMetadata.ogTitle} />
+        <meta
+          property="og:description"
+          content={fallbackMetadata.ogDescription}
         />
-        <link
-          rel="icon"
-          type="image/png"
-          href={
-            "https://res.cloudinary.com/dad2aebqt/image/upload/v1747227521/favicon_zgyqdj.ico"
-          }
+        <meta property="og:url" content={fallbackMetadata.ogUrl} />
+        <meta property="og:site_name" content={fallbackMetadata.ogSiteName} />
+        <meta property="og:image" content={fallbackMetadata.ogImage} />
+        <meta
+          property="og:image:width"
+          content={fallbackMetadata.ogImageWidth.toString()}
         />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href={
-            "https://res.cloudinary.com/dad2aebqt/image/upload/v1747227521/favicon_zgyqdj.ico"
-          }
+        <meta
+          property="og:image:height"
+          content={fallbackMetadata.ogImageHeight.toString()}
         />
+        <meta property="og:image:alt" content={fallbackMetadata.ogImageAlt} />
+        <meta property="og:type" content={fallbackMetadata.ogType} />
+
+        {/* Twitter card (optional but recommended) */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={fallbackMetadata.ogTitle} />
+        <meta
+          name="twitter:description"
+          content={fallbackMetadata.ogDescription}
+        />
+        <meta name="twitter:image" content={fallbackMetadata.ogImage} />
       </Head>
 
       <main className="ipo-container" style={{ overflowX: "hidden" }}>
